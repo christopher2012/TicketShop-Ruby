@@ -9,13 +9,16 @@ class TicketsController < ApplicationController
     ticket[:user_id] = current_user[:id]
     ticket[:price] = ticket.count * event_price_boost(ticket.event)
 
-    if ticket.save
+    if available_ticket_user_event(@event, ticket.user_id) - ticket.count < 0
+      flash[:danger] = "Limit biletów dla pojedyńczego użytkownika wynosi 5, ilość dostępnych jeszcze biletów: " + available_ticket_user_event(@event, ticket.user_id).to_s
+    elsif ticket.count < 0
+      flash[:danger] = "Ilość biletów nie może być ujemna!"
+    elsif ticket.save
       new_balance = ticket.user[:balance] - (ticket.event.price * ticket.count)
       current_user.update_attribute("balance", new_balance)
-
       flash[:success] = "Bilety zostały zakupione!"
     else
-      flash[:danger] = "Podaj ilość biletów!"
+      flash[:danger] = "Coś poszło nie tak, spróbuj później!"
     end
 
     redirect_to event_path(@event)

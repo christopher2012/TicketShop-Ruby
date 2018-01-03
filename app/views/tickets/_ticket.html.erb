@@ -1,10 +1,12 @@
 <li id="ticket-<%= ticket.id %>">
 
   <div class="row text-left">
-    <h3 class="event col-md-6"><%= link_to ticket.event.name, ticket.event %></h3>
-    <span class="timestamp col-md-4">
-    Bought <%= time_ago_in_words(ticket.created_at) %> ago.
+    <h3 class="event col-md-5"><%= link_to ticket.event.name, ticket.event %></h3>
+    <span class="timestamp col-md-2">
+    <%= ticket.event.date_event %>
     </span>
+    <span class="timestamp col-md-1"><%= ticket.count %></span>
+    <span class="timestamp col-md-2"><%= ticket.price %> zł</span>
       <%= link_to "Anuluj", cancel_tickets_path(ticket), method: :get,
                   data: { confirm: "Czy napewno chcesz anulować bilet?" }, class: "btn btn-danger text col-md-2" %>
   </div>

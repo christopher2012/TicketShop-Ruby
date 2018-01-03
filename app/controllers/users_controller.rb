@@ -1,3 +1,5 @@
+
+
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
 
@@ -29,7 +31,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    @user.write_attribute("balance", 1000)
     respond_to do |format|
       if @user.save
         log_in @user

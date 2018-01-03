@@ -31,3 +31,13 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        age: "Data urodzenia"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "nie modsfgfdsdfsdsfże być pusty."

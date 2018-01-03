@@ -6,6 +6,19 @@
 $gray-medium-light: #eaeaea;
 
 
+#error_explanation{
+  padding: 7px !important;
+  width: 100% !important;
+  h2{
+    display: none !important;
+  }
+
+  ul{
+    margin: 0px !important;
+  }
+}
+
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
