@@ -1,0 +1,207 @@
+// Place all the styles related to the Events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.background-item h3 {
+  font-size: 23px;
+}
+
+.background-item {
+  background: #F5F5F5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 5px #EAEAEA;
+  min-height: 450px;
+  margin: 20px 0px;
+  padding: 15px 10px;
+}
+
+.background-item a {
+  text-decoration: none;
+}
+
+.ticket-details {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #deebfc;
+}
+
+.ticket-details p {
+  line-height: 54px;
+  margin-bottom: 0;
+}
+
+.ticket-details a {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.ticket-details button {
+  width: 100%;
+  margin: 0px;
+}
+
+.to-delete {
+  background: #ffd5c1;
+}
+
+.background-item:hover {
+  text-decoration: none;
+  background: #fbfbfb;
+  cursor: pointer;
+}
+
+.background-item img {
+  width: 100%;
+  border: 1px solid #021a40;
+  border-radius: 5px;
+}
+
+.red-border-img {
+  padding: 2px;
+  background: red;
+}
+
+.input-order {
+  text-align: center;
+  background: white;
+}
+
+.order-buttons {
+  width: 80%;
+}
+
+.description {
+  text-align: justify;
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+button {
+  margin: 10px 0px 10px 0px;
+  width: 200px;
+}
+
+.delete-button {
+  margin: 10px 0px 10px 0px;
+  width: 200px;
+}
+
+.delete-button a {
+  width: 100%;
+}
+
+.order {
+  margin-top: 20px;
+}
+
+.price {
+  font-size: 22px;
+  margin-top: 15px;
+}
+
+.item-left {
+  font-size: 0.9em;
+}
+
+h1 {
+  text-align: left;
+
+}
+
+h2 {
+  text-align: left;
+  font-size: 24px;
+}
+
+h3 {
+  margin-top: 0px;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 32px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.image-event-show img {
+  width: 100%;
+}
+
+text-center {
+  text-align: center;
+}
+
+.details-event {
+  border-radius: 10px;
+  background: #deebfc;
+}
+
+.details-event div{
+  padding: 12px;
+}
+
+.not-valid-left {
+  background: #fcc2c2;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.not-valid-mid {
+  background: #fcc2c2;
+
+}
+
+.not-valid-right {
+  background: #fcc2c2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.disable-btn {
+
+}
+
+.archived-event {
+  background: #a3a3a3;
+}
+
+
+.archived-event:hover {
+  background: #b7b7b7;
+}
+
+.buy-button {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.buy-button h2 {
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.buy-button input {
+  width: 100px;
+  display: inline-block;
+}
+
+.buy-button .count{
+  text-align: right;
+}
+
+.buy-button p {
+  line-height: 70px;
+  input {
+    width: 100%;
+  }
+}
+
+.datepicker {
+  padding: 6px !important;
+}

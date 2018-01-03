@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  count: 1
+  user: one
+  event: one
+  seat_number: 1
+  price: 1
+
+two:
+  count: 1
+  user: two
+  event: two
+  seat_number: 1
+  price: 1

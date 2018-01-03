@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_event: 2018-01-01
+  name: MyString
+  description: MyText
+  min_age: 1
+  seats: 1
+  price: 1
+
+two:
+  date_event: 2018-01-01
+  name: MyString
+  description: MyText
+  min_age: 1
+  seats: 1
+  price: 1

@@ -1,0 +1,78 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @event.name %></h1>
+    <h2> <%= @event.description %></h2>
+    <h3>Data wydarzenia: <%= @event.date_event %></h3>
+    <div class="row details-event">
+      <% count_tickets_temp = count_tickets(@event) %>
+      <div class="col-md-4 text-center <%= 'not-valid-left' if !enough_balance(@event) %>">
+        <strong>Cena: </strong><%= event_price_boost(@event) %> zł
+      </div>
+      <div class="col-md-4 text-center <%= 'not-valid-mid' if !age_valid(@event) %>">
+        <strong>Wymagany wiek: </strong><%= @event.min_age %> lat
+      </div>
+      <div class="col-md-4 text-center <%= 'not-valid-right' if tickets_not_available(@event) %>">
+        <strong>Ilość miejsc: </strong><%= @event.seats - count_tickets(@event) %>/<%= @event.seats %></div>
+    </div>
+    <div class="row buy-button">
+
+      <%= form_with(model: [@event, @event.tickets.build], local: true) do |form| %>
+          <div class="count col-md-6">
+            <h2>Ilość biletów:</h2>
+            <%= form.text_field :count, class: "form-control" %>
+          </div>
+          <div class="buy col-md-3">
+            <p>
+              <%= form.submit "Kup bilety", class: "btn btn-primary", disabled: !can_sell(@event) %>
+            </p>
+          </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-md-4 image-event-show">
+    <%= image_tag @event.image %>
+  </div>
+</div>
+<% if current_user && current_user.admin %>
+    <div class="row">
+      <h2>Ilość biletów sprzedana na wydarzenie(<%= count_tickets_temp %>)</h2>
+      <% @tickets.each do |ticket| %>
+          <div class="row ticket-details <%= 'to-delete' if ticket.to_delete %>">
+            <% if !ticket.new_record? %>
+                <p class="col-md-3">
+                  <strong>Użytkownik:</strong>
+                  <%= ticket.user.name %>
+                </p>
+                <p class="col-md-2">
+                  <strong>Cena:</strong>
+                  <%= ticket.price %>
+                </p>
+                <p class="col-md-1">
+                  <strong>ilość:</strong>
+                  <%= ticket.count %>
+                </p>
+                <p class="col-md-4">
+                  <strong>Data zakupu:</strong>
+                  <%= ticket.created_at %>
+                </p>
+                <% if ticket.to_delete? %>
+
+                    <p class="col-md-2">
+                      <%= link_to "Usuń bilet", confirm_cancel_tickets_path(ticket), method: :patch,
+                                  data: {confirm: "Czy napewno chcesz usunąć transakcje?"}, class: "btn btn-danger text" %>
+                    </p>
+                <% end %>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+
+<% end %>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

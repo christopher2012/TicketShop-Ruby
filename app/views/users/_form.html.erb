@@ -1,0 +1,55 @@
+<%= form_with(model: @user, local: true) do |form| %>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :name, "Nazwa użtkownika" %>
+          <%= form.text_field :name, id: :user_name, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :email, "Email" %>
+          <%= form.text_field :email, id: :user_email, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :age, "Data urodzenia" %>
+          <%= form.text_field :age, id: :user_age, "data-provide" => 'datepicker', class: 'datepicker form-control' %>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.datepicker').datepicker({
+                    format: "yyyy-mm-dd"
+                });
+            });
+        </script>
+
+        <div class="field">
+          <%= form.label :password, "Hasło" %>
+          <%= form.password_field :password, id: :user_password, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :password_confirmation, "Powtórz hasło" %>
+          <%= form.password_field :password_confirmation, id: :user_password_confirmation, class: 'form-control' %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Aktualizuj", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+<% end %>

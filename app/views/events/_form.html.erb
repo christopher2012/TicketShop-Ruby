@@ -1,0 +1,77 @@
+<%= form_with(model: event, local: true) do |form| %>
+    <% if event.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+          <ul>
+            <% event.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-row">
+
+      <div class="field col-md-8">
+        <%= form.label :name, "Wydarzenie" %>
+        <%= form.text_field :name, id: :event_name, class: 'form-control' %>
+      </div>
+
+
+      <div class="field col-md-4">
+        <%= form.label :date_event, "Data wydarzenia" %>
+        <%= form.text_field :date_event, id: :event_date_event, "data-provide" => 'datepicker', class: 'datepicker form-control' %>
+      </div>
+
+
+      <script type="text/javascript">
+          $(document).ready(function(){
+              $('.datepicker').datepicker({
+                  format: "yyyy-mm-dd"
+              });
+          });
+      </script>
+
+    </div>
+
+
+    <div class="field col-md-12">
+      <%= form.label :description, "Opis wydarzenia" %>
+      <%= form.text_area :description, id: :event_description, class: 'form-control' %>
+    </div>
+
+
+    <div class="form-row">
+
+      <div class="col-md-4 mb-3">
+
+        <div class="field">
+          <%= form.label :min_age, "Minimalny wiek" %>
+          <%= form.number_field :min_age, id: :event_min_age, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="field">
+          <%= form.label :seats, "Ilość miejsc" %>
+          <%= form.number_field :seats, id: :event_seats, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="field">
+          <%= form.label :price, "Cena za bilet" %>
+          <%= form.number_field :price, id: :event_price, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class="custom-file col-md-12" >
+      <div class="field">
+        <%= form.label :image, "Obraz" %>
+        <%= form.file_field :image, id: :event_image, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="actions col-md-4">
+      <%= form.submit 'Zapisz wydarzenie', :class => 'btn btn-primary'%>
+    </div>
+<% end %>
