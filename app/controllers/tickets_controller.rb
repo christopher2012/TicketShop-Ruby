@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
 
     if available_ticket_user_event(@event, ticket.user_id) - ticket.count < 0
       flash[:danger] = "Limit biletów dla pojedyńczego użytkownika wynosi 5, ilość dostępnych jeszcze biletów: " + available_ticket_user_event(@event, ticket.user_id).to_s
-    elsif ticket.count < 0
+    elsif ticket.count <= 0
       flash[:danger] = "Ilość biletów nie może być ujemna!"
     elsif ticket.save
       new_balance = ticket.user[:balance] - (ticket.event.price * ticket.count)
@@ -45,6 +45,14 @@ class TicketsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def history
+
+    @ticketHistory = current_user.tickets.select{|ticket| archived_event(ticket.event) && !ticket.to_delete && !to_deleted}
+    @ticketCancel = current_user.tickets.select{|ticket| ticket.to_delete && !ticket.deleted}
+    @ticketCancelConfirm = current_user.tickets.select{|ticket| ticket.deleted}
+
   end
 
   def ticket_params

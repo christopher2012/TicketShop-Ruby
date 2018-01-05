@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     collection do
       get :cancel
       patch :confirm_cancel
+      get :history
     end
   end
 
+  #get '/history', to: 'ticket#history'
 
 
   get    '/login',   to: 'session#new'

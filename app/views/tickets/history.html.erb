@@ -1,0 +1,33 @@
+<div class="jumbotron">
+
+  <div class="row">
+    <div class="col-md-5">
+      <h4><strong>Nazwa wydarzenia</strong></h4>
+    </div>
+    <div class="col-md-2">
+      <h4><strong>Data</strong></h4>
+    </div>
+    <div class="col-md-2">
+      <h4><strong>Cena biletów</strong></h4>
+    </div>
+    <div class="col-md-3">
+      <h4><strong>Ilość miejsc</strong></h4>
+    </div>
+  </div>
+
+  <h2>Bilety archiwalne</h2>
+  <div class="row history-tickets">
+    <%= render partial: 'details', collection: @ticketHistory, as: :ticket %>
+  </div>
+
+  <h2>Bilety anulowane oczekujące akceptacji</h2>
+  <div class="row deleted">
+    <%= render partial: 'details', collection: @ticketCancel, as: :ticket %>
+  </div>
+
+  <h2>Bilety anulowane</h2>
+  <div class="row to-deleted">
+    <%= render partial: 'details', collection: @ticketCancelConfirm, as: :ticket %>
+  </div>
+
+</div>

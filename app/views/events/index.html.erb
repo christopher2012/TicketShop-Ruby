@@ -1,33 +1,92 @@
 <p id="notice"><%= notice %></p>
 
-<h1>WYDARZENIA</h1>
+<div class="header-event">
+  <h1>WYDARZENIA</h1>
 
-<% @events.each do |event| %>
-    <%= link_to event do %>
-        <div *ngFor='let bicycle of bicycleList' class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="background-item  <%='archived-event' if archived_event(event)%>" align="center">
-            <h3><%= event.name %></h3>
-            <%= image_tag event.image %>
-            <h6><%= event.date_event %></h6>
-            <h5 class="price">Cena: <%= event_price_boost(event) %> zł</h5>
-            <p class="item-left">Pozostała ilość miejsc: <%= event.seats - count_tickets(event)%>/<%= event.seats %></p>
-            <%= link_to event do %>
-                <button type="button" class="btn btn-primary">Szczegóły wydarzenia</button>
-            <% end %>
-            <% if logged_in? %>
-                <%= link_to edit_event_path(event) do %>
-                    <button type="button" class="btn btn-info">Edytuj</button>
-                <% end %>
-                <p class="delete-button">
-                  <%= link_to "Usuń wydarzenie", event, method: :delete,
-                              data: {confirm: "Czy napewno chcesz usunąć transakcje?"}, class: "btn btn-danger text" %>
-                </p>
-            <% end %>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Sortuj
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><a href="/events?price_desc=1">Cena malejąco</a></li>
+      <li><a href="/events?price_asc=1">Cena rosnąco</a></li>
+      <li><a href="/events?date_desc=1">Data malejąco</a></li>
+      <li><a href="/events?date_asc=1">Data rosnąco</a></li>
+    </ul>
+  </div>
+
+
+  <form action="/events" hidden method="get">
+
+  <div class="date-pick">
+    <span>OD:</span>
+    <div>
+      <input name="from_date" class="form-control datepicker">
+    </div>
+  </div>
+
+  <div class="date-pick">
+    <span>DO:</span>
+    <div>
+      <input name="to_date" class="form-control datepicker">
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true
+            });
+        });
+    </script>
+  </div>
+
+
+
+  <div>
+    <button type="submit" value="Submit" class="btn btn-default">Szukaj</button>
+  </div>
+
+
+    <div>
+      <button type="submit" value="Submit" class="btn btn-default">Wyczyść</button>
+    </div>
+
+  </form>
+
+</div>
+
+<div>
+  <% @events.each do |event| %>
+      <%= link_to event do %>
+          <div *ngFor='let bicycle of bicycleList' class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="background-item  <%= 'archived-event' if archived_event(event) %>" align="center">
+              <h3><%= event.name %></h3>
+              <%= image_tag event.image %>
+              <h6><%= event.date_event %></h6>
+              <h5 class="price">Cena: <%= event_price_boost(event) %> zł</h5>
+              <p class="item-left">Pozostała ilość miejsc: <%= event.seats - count_tickets(event) %>
+                /<%= event.seats %></p>
+              <%= link_to event do %>
+                  <button type="button" class="btn btn-primary">Szczegóły wydarzenia</button>
+              <% end %>
+              <% if logged_in? %>
+                  <%= link_to edit_event_path(event) do %>
+                      <button type="button" class="btn btn-info">Edytuj</button>
+                  <% end %>
+                  <p class="delete-button">
+                    <%= link_to "Usuń wydarzenie", event, method: :delete,
+                                data: {confirm: "Czy napewno chcesz usunąć transakcje?"}, class: "btn btn-danger text" %>
+                  </p>
+              <% end %>
+            </div>
           </div>
-        </div>
-    <% end %>
-<% end %>
+      <% end %>
 
-<% if current_user && current_user.admin? %>
-    <%= link_to image_tag("add_new.png"), {action: "new", controller: "events"}, {class: "add-new"} %>
-<% end %>
+  <% end %>
+
+  <% if current_user && current_user.admin? %>
+      <%= link_to image_tag("add_new.png"), {action: "new", controller: "events"}, {class: "add-new"} %>
+  <% end %>
+</div>

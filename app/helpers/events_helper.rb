@@ -23,7 +23,7 @@ module EventsHelper
       (event.price * 1.2).round
     else
       event.price
-end
+    end
   end
 
   def tickets_not_available(event)

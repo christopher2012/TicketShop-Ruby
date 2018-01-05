@@ -13,6 +13,7 @@
               <ul class="dropdown-menu">
                 <%@user = current_user %>
                 <li><%= link_to "Profil", current_user %></li>
+                <li><%= link_to "Historia", history_tickets_path%></li>
                 <li><%= link_to "Ustawienia", edit_user_path(@user) %></li>
                 <li class="divider"></li>
                 <li>

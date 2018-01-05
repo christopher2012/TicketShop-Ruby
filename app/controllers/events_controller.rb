@@ -5,10 +5,25 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+
+    @events = Event.where(nil)
+
+    @events = @events.search(params[:search]) if params[:search].present?
+
+    if params[:price_desc]
+      @events = @events.ordered_by_price_desc
+    elsif params[:price_asc]
+      @events = @events.ordered_by_price_asc
+    elsif params[:date_asc]
+      @events = @events.ordered_by_date_asc
+    elsif params[:date_desc]
+      @events = @events.ordered_by_date_desc
+    end
+
     if current_user && current_user.admin
-      @events = Event.all
+      @events
     else
-      @events = Event.all.select{|event| !archived_event(event)}
+      @events = @events.select {|event| !archived_event(event)}
     end
 
   end
