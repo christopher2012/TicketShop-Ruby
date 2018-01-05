@@ -2,7 +2,7 @@ class CustomUserValidation < ActiveModel::Validator
   def validate(record)
     if !record.age
       record.errors[:age] << "nie może być pusta."
-    elsif
+    elsif record.age > Time.now.to_date
       record.errors[:age] << "nie może być z przyszłości."
     end
   end
