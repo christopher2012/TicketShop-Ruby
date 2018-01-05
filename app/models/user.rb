@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true
+  validates_format_of :email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
   validates_with CustomUserValidation
 
   has_many :tickets, dependent: :destroy

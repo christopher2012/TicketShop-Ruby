@@ -57,6 +57,7 @@ pl:
               blank: "nie może być pusta."
             email:
               blank: "nie może być pusty."
+              invalid: "niepoprawny format."
             password:
               blank: "nie może być puste."
             password_confirmation:
