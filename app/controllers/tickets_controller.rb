@@ -9,10 +9,14 @@ class TicketsController < ApplicationController
     ticket[:user_id] = current_user[:id]
     ticket[:price] = ticket.count * event_price_boost(ticket.event)
 
-    if available_ticket_user_event(@event, ticket.user_id) - ticket.count < 0
-      flash[:danger] = "Limit biletów dla pojedyńczego użytkownika wynosi 5, ilość dostępnych jeszcze biletów: " + available_ticket_user_event(@event, ticket.user_id).to_s
+    if (available_ticket_user_event(@event, ticket.user_id)) < 0
+      flash[:danger] = "Limit biletów dla pojedyńczego użytkownika wynosi 5, ilość dostępnych jeszcze biletów: " + (available_ticket_user_event(@event, ticket.user_id) + ticket.count).to_s
     elsif ticket.count <= 0
       flash[:danger] = "Ilość biletów nie może być ujemna!"
+    elsif (ticket.event.seats-count_tickets(ticket.event) - ticket.count) < 0
+      flash[:danger] = "Ilość wybranych biletów na wydarzenie została przekroczona!"
+    elsif ticket.user[:balance] - (ticket.event.price * ticket.count) < 0
+      flash[:danger] = "Brak wystarczających środków na zakup biletów!"
     elsif ticket.save
       new_balance = ticket.user[:balance] - (ticket.event.price * ticket.count)
       current_user.update_attribute("balance", new_balance)
@@ -28,7 +32,9 @@ class TicketsController < ApplicationController
     ticket = Ticket.find(params[:format])
     ticket.update_attribute(:to_delete, true)
     days = (ticket.event.date_event - ticket.updated_at.to_date).to_i
-    flash[:success] = "Bilet został anulowany. Środki zostaną przekazane po zaakceptowaniu przez administratora. Zwrot: " + calculate_refund(ticket.price, days).to_s + " zł"
+    refund = calculate_refund(ticket.price, days)
+    ticket.update_attribute(:price,refund)
+    flash[:success] = "Bilet został anulowany. Środki zostaną przekazane po zaakceptowaniu przez administratora. Zwrot: " + refund.to_s + " zł"
     redirect_to current_user
 
   end
@@ -37,7 +43,7 @@ class TicketsController < ApplicationController
     ticket = Ticket.find(params[:format])
     event = ticket.event
     days = (ticket.event.date_event - ticket.updated_at.to_date).to_i
-    new_balance = ticket.user[:balance] + calculate_refund(ticket.price, days)
+    new_balance = ticket.user[:balance] + ticket.price
     ticket.user.update_attribute("balance", new_balance)
     ticket.update_attribute(:deleted, true)
     flash[:success] = "Bilet został usunięty."

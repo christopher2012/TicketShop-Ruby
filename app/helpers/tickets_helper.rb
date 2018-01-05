@@ -7,7 +7,7 @@ module TicketsHelper
   def available_ticket_user_event(event, user_id)
     ticket_count = 0
     event.tickets.each do |ticket|
-      if ticket.user_id == user_id
+      if ticket.user_id == user_id && !ticket.deleted
         ticket_count += ticket.count
       end
     end

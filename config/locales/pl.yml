@@ -59,6 +59,8 @@ pl:
               blank: "nie może być pusty."
             password:
               blank: "nie może być puste."
+            password_confirmation:
+              confirmation: "niepoprawne."
         event:
           attributes:
             name:
