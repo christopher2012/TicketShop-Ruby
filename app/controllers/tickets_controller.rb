@@ -55,7 +55,7 @@ class TicketsController < ApplicationController
 
   def history
 
-    @ticketHistory = current_user.tickets.select{|ticket| archived_event(ticket.event) && !ticket.to_delete && !to_deleted}
+    @ticketHistory = current_user.tickets.select{|ticket| archived_event(ticket.event) && !ticket.to_delete && !ticket.deleted}
     @ticketCancel = current_user.tickets.select{|ticket| ticket.to_delete && !ticket.deleted}
     @ticketCancelConfirm = current_user.tickets.select{|ticket| ticket.deleted}
 
