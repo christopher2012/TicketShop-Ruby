@@ -35,7 +35,7 @@ module EventsHelper
   end
 
   def enough_balance(event)
-    current_user.balance > event.price
+    current_user.balance >= event.price
   end
 
   def can_sell_date(event)

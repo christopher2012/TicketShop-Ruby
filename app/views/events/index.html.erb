@@ -71,7 +71,7 @@
               <%= link_to event do %>
                   <button type="button" class="btn btn-primary">Szczegóły wydarzenia</button>
               <% end %>
-              <% if logged_in? %>
+              <% if logged_in? && current_user.admin %>
                   <%= link_to edit_event_path(event) do %>
                       <button type="button" class="btn btn-info">Edytuj</button>
                   <% end %>
